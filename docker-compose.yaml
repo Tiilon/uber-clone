@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:15
+    env_file:
+      - .env
+    volumes:
+      - uber_clone_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  db_admin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=Sparrow0500
+    depends_on:
+      - db
+    volumes:
+      - uber_clone_pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  uber_clone_postgres_data:
+  uber_clone_pgadmin_data:
